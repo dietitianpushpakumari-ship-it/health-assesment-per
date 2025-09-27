@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalized Health Assessment | Nutricare Wellness</title>
+    <!-- 1. MINIMAL TITLE: Used only "Embed" to discourage scraping a long, descriptive title. -->
+    <title>Embed</title>
     
     <!-- TEMPORARILY COMMENTED OUT: Open Graph Meta Tags for Facebook Preview -->
     <!-- These tags are being commented out to prevent platforms like Canva from generating 
@@ -72,7 +73,8 @@
     </nav>
 
     <!-- 2. HERO SECTION -->
-    <header class="bg-primary-diet/10 py-16 md:py-24">
+    <!-- 2. HIDING CONTENT FROM SCRAPERS: Added id and inline style to hide large text initially. -->
+    <header id="content-to-hide" class="bg-primary-diet/10 py-16 md:py-24" style="display: none;">
         <div class="max-w-5xl mx-auto px-4 text-center">
             <p class="text-sm font-semibold text-primary-dark uppercase tracking-widest mb-3">Health & Longevity Starts Here</p>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
@@ -367,6 +369,17 @@
         document.getElementById('website-link').href = WEBSITE_HUB_URL;
         // --- CONFIGURATION END ---
         
+        // --- CONTENT REVEAL SCRIPT ---
+        // This runs immediately to ensure the user sees the content, but may run too late for the scraper.
+        document.addEventListener('DOMContentLoaded', () => {
+            const hiddenContent = document.getElementById('content-to-hide');
+            if (hiddenContent) {
+                hiddenContent.style.display = 'block';
+            }
+        });
+        // -----------------------------
+
+
         function getInputValue(id) {
             const element = document.getElementById(id);
             const value = parseFloat(element.value);
