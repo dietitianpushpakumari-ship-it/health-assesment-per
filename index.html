@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized Health Assessment | Nutricare Wellness</title>
     
-    <!-- NEW: Open Graph Meta Tags for Facebook Preview -->
-    <!-- REPLACE [PLACEHOLDER] VALUES WITH YOUR LIVE LINKS/IMAGE -->
+    <!-- TEMPORARILY COMMENTED OUT: Open Graph Meta Tags for Facebook Preview -->
+    <!-- These tags are being commented out to prevent platforms like Canva from generating 
+         a static thumbnail preview. If you wish to use this link on Facebook or WhatsApp 
+         later, you should uncomment these lines. -->
+    <!-- 
     <meta property="og:title" content="FREE 60-Second Vital Health Risk Assessment">
     <meta property="og:description" content="Stop guessing! Instantly calculate your personalized risk score based on key labs (Sugar, Cholesterol, TSH, etc.) and get an initial dietitian-designed solution.">
-    <meta property="og:image" content="[image.jpg]"> 
-    <meta property="og:url" content="https://dietitianpushpakumari-ship-it.github.io/health-assesment/">
+    <meta property="og:image" content="https://dietitianpushpakumari-ship-it.github.io/health-assesment/images/image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="[YOUR_LIVE_CALCULATOR_URL]">
     <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="[YOUR_FACEBOOK_APP_ID]">
+    -->
     <!-- END Open Graph Meta Tags -->
 
     <!-- Load Tailwind CSS CDN for styling -->
@@ -36,7 +43,7 @@
     </script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', 'sans-serif';
             background-color: #f0fdfa;
         }
         /* Style for required asterisk */
@@ -49,11 +56,6 @@
             box-shadow: 0 0 0 2px var(--tw-color-primary-diet);
             border-color: var(--tw-color-primary-dark);
         }
-        .text-latex {
-            /* This style is for displaying the LaTeX symbols correctly if needed, 
-            though typically browser rendering is sufficient for this simple case */
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -61,6 +63,7 @@
     <!-- 1. NAVIGATION BAR -->
     <nav class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- UPDATED: Changed NUTRICARE to NUTRICARE WELLNESS -->
             <a href="#" class="text-2xl font-extrabold text-primary-dark tracking-tight">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></a>
             <a href="#calculator-app" class="px-4 py-2 text-sm font-semibold text-white bg-primary-diet rounded-full hover:bg-primary-dark transition duration-200">
                 Start Assessment
@@ -135,8 +138,8 @@
                                 <!-- Blood Pressure (OPTIONAL) -->
                                 <div class="sm:col-span-2 grid grid-cols-2 gap-4">
                                     <label class="block text-sm font-medium text-gray-700 col-span-2">Blood Pressure (mmHg)</label>
-                                    <input type="number" id="sysBP" min="60" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Systolic (Top)">
-                                    <input type="number" id="diaBP" min="40" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Diastolic (Bottom)">
+                                    <input type="number" id="sysBP" min="60" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Systolic (e.g., 120)">
+                                    <input type="number" id="diaBP" min="40" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Diastolic (e.g., 80)">
                                 </div>
 
                                 <!-- Metabolic Vitals (OPTIONAL) -->
@@ -149,7 +152,8 @@
                                     <input type="number" id="cholesterol" min="50" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 180">
                                 </div>
                                 <div>
-                                    <label for="tsh" class="block text-sm font-medium text-gray-700">TSH (<span class="text-latex">\mu \text{IU/mL}</span>)</label>
+                                    <!-- TSH label uses Unicode character (μIU/mL) -->
+                                    <label for="tsh" class="block text-sm font-medium text-gray-700">TSH (μIU/mL)</label>
                                     <input type="number" id="tsh" min="0.1" max="100" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 2.5">
                                 </div>
                                 
@@ -170,9 +174,10 @@
                                     <input type="number" id="sgpt" min="1" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="SGPT/ALT (e.g., 35)">
                                 </div>
 
-                                <!-- Hemoglobin (OPTIONAL) -->
+                                <!-- Haemoglobin (OPTIONAL) -->
                                 <div>
-                                    <label for="hemoglobin" class="block text-sm font-medium text-gray-700">Hemoglobin (g/dL)</label>
+                                    <!-- FIX: Updated spelling to Haemoglobin (g/dL) -->
+                                    <label for="hemoglobin" class="block text-sm font-medium text-gray-700">Haemoglobin (g/dL)</label>
                                     <input type="number" id="hemoglobin" min="5" max="20" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 14.2">
                                 </div>
                                 
@@ -275,9 +280,42 @@
                                     </div>
                                 </li>
                             </ul>
-
-                            <p class="text-lg font-medium text-gray-800 pt-4">Don't wait until a diagnosis—let's optimize your health now.</p>
                         </div>
+                        
+                        <!-- NEW SECTION: Immediate Tips -->
+                        <div class="space-y-4 pt-6 border-t border-gray-100">
+                            <h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Immediate Health Boosters (Dietitian's Top Tips)</h3>
+                            <ul class="list-none text-gray-700 space-y-3 p-4 bg-secondary-gray rounded-xl border border-gray-200">
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&bull;</span>
+                                        <p><strong class="text-gray-800">Hydration First:</strong> Drink 1-2 glasses of water immediately upon waking. This kickstarts metabolism and supports kidney function (important for Creatinine/Urea).</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&bull;</span>
+                                        <p><strong class="text-gray-800">Fiber Focus:</strong> Aim for 3-5 servings of vegetables daily. Fiber naturally helps manage Cholesterol and Blood Sugar levels.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&bull;</span>
+                                        <p><strong class="text-gray-800">Move After Meals:</strong> Take a 10-minute slow walk after dinner. This is a highly effective way to stabilize post-meal glucose spikes.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&bull;</span>
+                                        <p><strong class="text-gray-800">Prioritize Sleep:</strong> Target 7-9 hours of quality sleep. Poor sleep dramatically raises cortisol, impacting BP and sugar control.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END NEW SECTION -->
+
+
+                        <p class="text-lg font-medium text-gray-800 pt-4">Don't wait until a diagnosis—let's optimize your health now.</p>
                         
                         <!-- Call to Action -->
                         <div class="pt-4 border-t">
@@ -309,6 +347,7 @@
     <!-- 4. FOOTER -->
     <footer class="bg-gray-900 text-white py-12 mt-16">
         <div class="max-w-6xl mx-auto px-4 text-center">
+            <!-- UPDATED: Changed NUTRICARE to NUTRICARE WELLNESS -->
             <p class="text-2xl font-extrabold text-white tracking-tight mb-2">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></p>
             <p class="text-sm text-gray-400">&copy; 2025 Nutricare Wellness. All rights reserved.</p>
             <p class="text-xs text-gray-500 mt-4">Disclaimer: This calculator is for informational purposes only and is not a substitute for professional medical advice or diagnosis. Consult with a healthcare provider for personalized guidance.</p>
@@ -344,11 +383,13 @@
             const colorClass = isRisk ? 'text-red-600 font-medium' : 'text-gray-700';
             const valueDisplay = (value !== null) ? value.toString() : 'N/A';
             
-            // Handle LaTeX formatting for TSH unit
-            const unitDisplay = (label === 'TSH') ? valueDisplay + ' $\\mu \\text{IU/mL}$' : valueDisplay + ' ' + unit;
-            
-            // Remove the $ and LaTeX commands for the final display
-            const finalUnitDisplay = unitDisplay.replace(/\\mu \\text{IU\/mL}/g, 'μIU/mL').replace(/\$/g, '');
+            // Use the correct unit for display
+            let finalUnitDisplay = valueDisplay;
+            if (unit) {
+                finalUnitDisplay += ' ' + unit;
+            } else if (label === 'TSH') {
+                finalUnitDisplay += ' μIU/mL'; // Directly use Unicode for TSH
+            }
 
             return `<li class="${colorClass}">${label}: ${finalUnitDisplay} (${category}) <span class="text-xs text-gray-500 italic ml-2"> (Normal: ${normalRange})</span></li>`;
         }
@@ -371,7 +412,7 @@
             const urea = getInputValue('urea');             
             const sgot = getInputValue('sgot');             
             const sgpt = getInputValue('sgpt');             
-            const hemoglobin = getInputValue('hemoglobin'); 
+            const hemoglobin = getInputValue('hemoglobin'); // ID remains 'hemoglobin'
 
             const sex = document.getElementById('sex').value; // (Mandatory)
             const activityValue = document.getElementById('activity').value; // (Mandatory)
@@ -447,7 +488,7 @@
                 }
             }
             
-            // TSH Risk (Optimal: 0.4 - 4.0 $\mu$IU/mL)
+            // TSH Risk (Optimal: 0.4 - 4.0 μIU/mL)
             let tshCategory = 'Not Provided';
             if (tsh !== null) {
                 if (tsh < 0.4 || tsh > 4.0) {
@@ -503,14 +544,15 @@
                 }
             }
 
-            // Hemoglobin Risk (Normal: M: 13.5–17.5, F: 12.0–15.5 g/dL)
+            // Haemoglobin Risk (Normal: M: 13.5–17.5, F: 12.0–15.5 g/dL)
             let hbCategory = 'Not Provided';
             const hbNormalLower = sex === 'male' ? 13.5 : 12.0;
             if (hemoglobin !== null) {
                 if (hemoglobin < hbNormalLower) {
-                    hbCategory = 'Low Hemoglobin (Anemia Risk)'; riskScore += 2; riskDetails.push('Low Hemoglobin (Anemia)');
+                    // FIX: Updated spelling in risk detail
+                    hbCategory = 'Low Haemoglobin (Anemia Risk)'; riskScore += 2; riskDetails.push('Low Haemoglobin (Anemia)');
                 } else if (hemoglobin > (sex === 'male' ? 17.5 : 15.5)) {
-                    hbCategory = 'High Hemoglobin'; 
+                    hbCategory = 'High Haemoglobin'; 
                 } else {
                     hbCategory = 'Normal';
                 }
@@ -589,8 +631,9 @@
                     ${formatVitalLine('SGOT (AST)', sgot, 'U/L', sgotCategory, '8-40')}
                     ${formatVitalLine('SGPT (ALT)', sgpt, 'U/L', sgptCategory, '7-56')}
                     
-                    <!-- HEMOGLOBIN -->
-                    ${formatVitalLine('Hemoglobin', hemoglobin !== null ? hemoglobin.toFixed(1) : null, 'g/dL', hbCategory, hemoglobinNormalRange)}
+                    <!-- HAEMOGLOBIN -->
+                    <!-- FIX: Updated display label to Haemoglobin -->
+                    ${formatVitalLine('Haemoglobin', hemoglobin !== null ? hemoglobin.toFixed(1) : null, 'g/dL', hbCategory, hemoglobinNormalRange)}
                 </ul>
                 <p class="mt-4 p-3 rounded-lg border ${riskColor.includes('border-green') ? 'border-green-300' : riskColor.includes('border-amber') ? 'border-amber-300' : 'border-red-300'} text-sm italic">${riskAdvice}</p>
             `;
