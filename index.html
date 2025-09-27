@@ -3,24 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 1. MINIMAL TITLE: Used only "Embed" to discourage scraping a long, descriptive title. -->
-    <title>Embed</title>
+    <!-- 1. EXTREME MINIMAL TITLE: Uses generic title to avoid scraping health keywords. -->
+    <title>Calculator Interface</title>
     
-    <!-- TEMPORARILY COMMENTED OUT: Open Graph Meta Tags for Facebook Preview -->
-    <!-- These tags are being commented out to prevent platforms like Canva from generating 
-         a static thumbnail preview. If you wish to use this link on Facebook or WhatsApp 
-         later, you should uncomment these lines. -->
-    <!-- 
-    <meta property="og:title" content="FREE 60-Second Vital Health Risk Assessment">
-    <meta property="og:description" content="Stop guessing! Instantly calculate your personalized risk score based on key labs (Sugar, Cholesterol, TSH, etc.) and get an initial dietitian-designed solution.">
-    <meta property="og:image" content="https://dietitianpushpakumari-ship-it.github.io/health-assesment/images/image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="[YOUR_LIVE_CALCULATOR_URL]">
-    <meta property="og:type" content="website">
-    <meta property="fb:app_id" content="[YOUR_FACEBOOK_APP_ID]">
-    -->
-    <!-- END Open Graph Meta Tags -->
+    <!-- Open Graph Tags remain commented out -->
 
     <!-- Load Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,11 +33,9 @@
             font-family: 'Inter', 'sans-serif';
             background-color: #f0fdfa;
         }
-        /* Style for required asterisk */
         label span {
             color: #ef4444; 
         }
-        /* Material Design style focus for inputs */
         input:focus, select:focus, textarea:focus {
             --tw-ring-color: var(--tw-color-primary-dark);
             box-shadow: 0 0 0 2px var(--tw-color-primary-diet);
@@ -64,7 +48,6 @@
     <!-- 1. NAVIGATION BAR -->
     <nav class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- UPDATED: Changed NUTRICARE to NUTRICARE WELLNESS -->
             <a href="#" class="text-2xl font-extrabold text-primary-dark tracking-tight">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></a>
             <a href="#calculator-app" class="px-4 py-2 text-sm font-semibold text-white bg-primary-diet rounded-full hover:bg-primary-dark transition duration-200">
                 Start Assessment
@@ -73,33 +56,30 @@
     </nav>
 
     <!-- 2. HERO SECTION -->
-    <!-- 2. HIDING CONTENT FROM SCRAPERS: Added id and inline style to hide large text initially. -->
-    <header id="content-to-hide" class="bg-primary-diet/10 py-16 md:py-24" style="display: none;">
+    <!-- 2. GENERIC TEXT: Replaced descriptive marketing text with generic instructions that are harmless if scraped. -->
+    <header id="content-to-hide" class="bg-primary-diet/10 py-16 md:py-24">
         <div class="max-w-5xl mx-auto px-4 text-center">
-            <p class="text-sm font-semibold text-primary-dark uppercase tracking-widest mb-3">Health & Longevity Starts Here</p>
+            <p class="text-sm font-semibold text-primary-dark uppercase tracking-widest mb-3">Begin Your Evaluation</p>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                Uncover Your <span class="text-primary-diet">Personalized Vital Risk</span> in 60 Seconds
+                <span class="text-primary-diet">Start Below</span> to Access the Tool
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                Stop guessing about your health. Use our free tool to instantly calculate your risk score based on key labs and lifestyle factors, and receive a dietitian's initial solution.
+                Please scroll down to the calculator interface to begin the assessment.
             </p>
             <a href="#calculator-section" class="inline-block px-10 py-4 bg-primary-dark text-white text-lg font-bold rounded-xl shadow-xl hover:bg-primary-diet transition duration-300 transform hover:scale-105">
-                Calculate My Score Now &rarr;
+                Go to Calculator &rarr;
             </a>
         </div>
     </header>
 
     <!-- 3. CALCULATOR SECTION (CORE FEATURE) -->
     <section id="calculator-section" class="py-16 bg-white">
-        <!-- Layout adjusted to a single column, centering the calculator -->
         <div class="max-w-6xl mx-auto px-4">
             
-            <!-- Centered Calculator Container -->
             <div id="calculator-container" class="max-w-xl mx-auto">
-                <!-- Start of the integrated calculator structure -->
                 <div id="calculator-app" class="w-full bg-white shadow-2xl rounded-xl overflow-hidden p-4 sm:p-6 border border-gray-100">
                     
-                    <!-- HEADER: Compact design with Clinic Name (Retained from original file) -->
+                    <!-- HEADER: Retained the app title, as this is essential for user context inside the embed -->
                     <header class="bg-primary-diet text-white py-4 px-6 md:py-5 md:px-8 shadow-lg -mx-4 -mt-4 sm:-mx-6 sm:-mt-6 rounded-t-xl">
                         <p class="text-xs font-medium uppercase opacity-90 mb-0">NUTRICARE WELLNESS</p>
                         <h1 class="mt-1 text-xl sm:text-2xl font-bold tracking-tight">Personalized Health Assessment</h1>
@@ -154,8 +134,8 @@
                                     <input type="number" id="cholesterol" min="50" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 180">
                                 </div>
                                 <div>
-                                    <!-- TSH label uses Unicode character (μIU/mL) -->
-                                    <label for="tsh" class="block text-sm font-medium text-gray-700">TSH (μIU/mL)</label>
+                                    <!-- TSH label uses LaTeX formatting for mu (mu) -->
+                                    <label for="tsh" class="block text-sm font-medium text-gray-700">TSH ($\mu$IU/mL)</label>
                                     <input type="number" id="tsh" min="0.1" max="100" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 2.5">
                                 </div>
                                 
@@ -178,7 +158,6 @@
 
                                 <!-- Haemoglobin (OPTIONAL) -->
                                 <div>
-                                    <!-- FIX: Updated spelling to Haemoglobin (g/dL) -->
                                     <label for="hemoglobin" class="block text-sm font-medium text-gray-700">Haemoglobin (g/dL)</label>
                                     <input type="number" id="hemoglobin" min="5" max="20" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 14.2">
                                 </div>
@@ -349,7 +328,6 @@
     <!-- 4. FOOTER -->
     <footer class="bg-gray-900 text-white py-12 mt-16">
         <div class="max-w-6xl mx-auto px-4 text-center">
-            <!-- UPDATED: Changed NUTRICARE to NUTRICARE WELLNESS -->
             <p class="text-2xl font-extrabold text-white tracking-tight mb-2">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></p>
             <p class="text-sm text-gray-400">&copy; 2025 Nutricare Wellness. All rights reserved.</p>
             <p class="text-xs text-gray-500 mt-4">Disclaimer: This calculator is for informational purposes only and is not a substitute for professional medical advice or diagnosis. Consult with a healthcare provider for personalized guidance.</p>
@@ -369,16 +347,7 @@
         document.getElementById('website-link').href = WEBSITE_HUB_URL;
         // --- CONFIGURATION END ---
         
-        // --- CONTENT REVEAL SCRIPT ---
-        // This runs immediately to ensure the user sees the content, but may run too late for the scraper.
-        document.addEventListener('DOMContentLoaded', () => {
-            const hiddenContent = document.getElementById('content-to-hide');
-            if (hiddenContent) {
-                hiddenContent.style.display = 'block';
-            }
-        });
-        // -----------------------------
-
+        // --- CONTENT REVEAL SCRIPT REMOVED ---
 
         function getInputValue(id) {
             const element = document.getElementById(id);
@@ -391,17 +360,15 @@
             if (category === 'Not Provided') {
                 return `<li>${label}: Not Provided</li>`;
             }
-            // Text color is red if the category is anything other than Normal/Optimal
             const isRisk = (category !== 'Normal' && category !== 'Optimal');
             const colorClass = isRisk ? 'text-red-600 font-medium' : 'text-gray-700';
             const valueDisplay = (value !== null) ? value.toString() : 'N/A';
             
-            // Use the correct unit for display
             let finalUnitDisplay = valueDisplay;
             if (unit) {
                 finalUnitDisplay += ' ' + unit;
             } else if (label === 'TSH') {
-                finalUnitDisplay += ' μIU/mL'; // Directly use Unicode for TSH
+                finalUnitDisplay += ' $\\mu$IU/mL'; // Using LaTeX for TSH
             }
 
             return `<li class="${colorClass}">${label}: ${finalUnitDisplay} (${category}) <span class="text-xs text-gray-500 italic ml-2"> (Normal: ${normalRange})</span></li>`;
@@ -425,7 +392,7 @@
             const urea = getInputValue('urea');             
             const sgot = getInputValue('sgot');             
             const sgpt = getInputValue('sgpt');             
-            const hemoglobin = getInputValue('hemoglobin'); // ID remains 'hemoglobin'
+            const hemoglobin = getInputValue('hemoglobin'); 
 
             const sex = document.getElementById('sex').value; // (Mandatory)
             const activityValue = document.getElementById('activity').value; // (Mandatory)
@@ -501,7 +468,7 @@
                 }
             }
             
-            // TSH Risk (Optimal: 0.4 - 4.0 μIU/mL)
+            // TSH Risk (Optimal: 0.4 - 4.0 $\mu$IU/mL)
             let tshCategory = 'Not Provided';
             if (tsh !== null) {
                 if (tsh < 0.4 || tsh > 4.0) {
@@ -562,7 +529,6 @@
             const hbNormalLower = sex === 'male' ? 13.5 : 12.0;
             if (hemoglobin !== null) {
                 if (hemoglobin < hbNormalLower) {
-                    // FIX: Updated spelling in risk detail
                     hbCategory = 'Low Haemoglobin (Anemia Risk)'; riskScore += 2; riskDetails.push('Low Haemoglobin (Anemia)');
                 } else if (hemoglobin > (sex === 'male' ? 17.5 : 15.5)) {
                     hbCategory = 'High Haemoglobin'; 
@@ -645,7 +611,6 @@
                     ${formatVitalLine('SGPT (ALT)', sgpt, 'U/L', sgptCategory, '7-56')}
                     
                     <!-- HAEMOGLOBIN -->
-                    <!-- FIX: Updated display label to Haemoglobin -->
                     ${formatVitalLine('Haemoglobin', hemoglobin !== null ? hemoglobin.toFixed(1) : null, 'g/dL', hbCategory, hemoglobinNormalRange)}
                 </ul>
                 <p class="mt-4 p-3 rounded-lg border ${riskColor.includes('border-green') ? 'border-green-300' : riskColor.includes('border-amber') ? 'border-amber-300' : 'border-red-300'} text-sm italic">${riskAdvice}</p>
