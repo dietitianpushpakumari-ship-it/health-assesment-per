@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Health Assessment | Nutricare Wellness</title>
+    
+    <!-- NEW: Open Graph Meta Tags for Facebook Preview -->
+    <!-- REPLACE [PLACEHOLDER] VALUES WITH YOUR LIVE LINKS/IMAGE -->
+    <meta property="og:title" content="FREE 60-Second Vital Health Risk Assessment">
+    <meta property="og:description" content="Stop guessing! Instantly calculate your personalized risk score based on key labs (Sugar, Cholesterol, TSH, etc.) and get an initial dietitian-designed solution.">
+    <meta property="og:image" content="[image.jpg]"> 
+    <meta property="og:url" content="https://dietitianpushpakumari-ship-it.github.io/health-assesment/">
+    <meta property="og:type" content="website">
+    <!-- END Open Graph Meta Tags -->
+
+    <!-- Load Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind to use the Inter font for better readability
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-diet': '#10b981', // Emerald green for health
+                        'primary-dark': '#047857',
+                        'bg-light': '#f0fdfa',
+                        'secondary-gray': '#f3f4f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdfa;
+        }
+        /* Style for required asterisk */
+        label span {
+            color: #ef4444; 
+        }
+        /* Material Design style focus for inputs */
+        input:focus, select:focus, textarea:focus {
+            --tw-ring-color: var(--tw-color-primary-dark);
+            box-shadow: 0 0 0 2px var(--tw-color-primary-diet);
+            border-color: var(--tw-color-primary-dark);
+        }
+        .text-latex {
+            /* This style is for displaying the LaTeX symbols correctly if needed, 
+            though typically browser rendering is sufficient for this simple case */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVIGATION BAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold text-primary-dark tracking-tight">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></a>
+            <a href="#calculator-app" class="px-4 py-2 text-sm font-semibold text-white bg-primary-diet rounded-full hover:bg-primary-dark transition duration-200">
+                Start Assessment
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <header class="bg-primary-diet/10 py-16 md:py-24">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <p class="text-sm font-semibold text-primary-dark uppercase tracking-widest mb-3">Health & Longevity Starts Here</p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                Uncover Your <span class="text-primary-diet">Personalized Vital Risk</span> in 60 Seconds
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Stop guessing about your health. Use our free tool to instantly calculate your risk score based on key labs and lifestyle factors, and receive a dietitian's initial solution.
+            </p>
+            <a href="#calculator-section" class="inline-block px-10 py-4 bg-primary-dark text-white text-lg font-bold rounded-xl shadow-xl hover:bg-primary-diet transition duration-300 transform hover:scale-105">
+                Calculate My Score Now &rarr;
+            </a>
+        </div>
+    </header>
+
+    <!-- 3. CALCULATOR SECTION (CORE FEATURE) -->
+    <section id="calculator-section" class="py-16 bg-white">
+        <!-- Layout adjusted to a single column, centering the calculator -->
+        <div class="max-w-6xl mx-auto px-4">
+            
+            <!-- Centered Calculator Container -->
+            <div id="calculator-container" class="max-w-xl mx-auto">
+                <!-- Start of the integrated calculator structure -->
+                <div id="calculator-app" class="w-full bg-white shadow-2xl rounded-xl overflow-hidden p-4 sm:p-6 border border-gray-100">
+                    
+                    <!-- HEADER: Compact design with Clinic Name (Retained from original file) -->
+                    <header class="bg-primary-diet text-white py-4 px-6 md:py-5 md:px-8 shadow-lg -mx-4 -mt-4 sm:-mx-6 sm:-mt-6 rounded-t-xl">
+                        <p class="text-xs font-medium uppercase opacity-90 mb-0">NUTRICARE WELLNESS</p>
+                        <h1 class="mt-1 text-xl sm:text-2xl font-bold tracking-tight">Personalized Health Assessment</h1>
+                        <p class="mt-1 text-xs opacity-70">Calculate your vital risk score and get our dietitian's initial plan.</p>
+                    </header>
+
+                    <!-- Input Form Section (Retained from original file) -->
+                    <div id="input-form" class="space-y-6 pt-6">
+                        <h2 class="text-lg font-semibold text-gray-800 border-b pb-2">Your Vitals & Background</h2>
+                        
+                        <form id="hra-form" onsubmit="calculateRisk(event)">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+                                
+                                <!-- Age & Sex (MANDATORY) -->
+                                <div>
+                                    <label for="age" class="block text-sm font-medium text-gray-700">Age (Years) <span>*</span></label>
+                                    <input type="number" id="age" min="18" max="120" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 35">
+                                </div>
+                                <div>
+                                    <label for="sex" class="block text-sm font-medium text-gray-700">Sex <span>*</span></label>
+                                    <select id="sex" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet">
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+
+                                <!-- Height & Weight for BMI (MANDATORY) -->
+                                <div>
+                                    <label for="height" class="block text-sm font-medium text-gray-700">Height (cm) <span>*</span></label>
+                                    <input type="number" id="height" min="100" max="250" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 175">
+                                </div>
+                                <div>
+                                    <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg) <span>*</span></label>
+                                    <input type="number" id="weight" min="30" max="300" step="0.1" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 78.5">
+                                </div>
+
+                                <!-- Blood Pressure (OPTIONAL) -->
+                                <div class="sm:col-span-2 grid grid-cols-2 gap-4">
+                                    <label class="block text-sm font-medium text-gray-700 col-span-2">Blood Pressure (mmHg)</label>
+                                    <input type="number" id="sysBP" min="60" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Systolic (Top)">
+                                    <input type="number" id="diaBP" min="40" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="Diastolic (Bottom)">
+                                </div>
+
+                                <!-- Metabolic Vitals (OPTIONAL) -->
+                                <div>
+                                    <label for="sugar" class="block text-sm font-medium text-gray-700">Fasting Sugar (mg/dL)</label>
+                                    <input type="number" id="sugar" min="50" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 95">
+                                </div>
+                                <div>
+                                    <label for="cholesterol" class="block text-sm font-medium text-gray-700">Total Cholesterol (mg/dL)</label>
+                                    <input type="number" id="cholesterol" min="50" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 180">
+                                </div>
+                                <div>
+                                    <label for="tsh" class="block text-sm font-medium text-gray-700">TSH (<span class="text-latex">\mu \text{IU/mL}</span>)</label>
+                                    <input type="number" id="tsh" min="0.1" max="100" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 2.5">
+                                </div>
+                                
+                                <!-- Kidney Profile (OPTIONAL) -->
+                                <div>
+                                    <label for="creatinine" class="block text-sm font-medium text-gray-700">Creatinine (mg/dL)</label>
+                                    <input type="number" id="creatinine" min="0.1" step="0.01" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 0.8">
+                                </div>
+                                <div>
+                                    <label for="urea" class="block text-sm font-medium text-gray-700">Urea / BUN (mg/dL)</label>
+                                    <input type="number" id="urea" min="5" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 15">
+                                </div>
+                                
+                                <!-- Liver Profile (OPTIONAL) -->
+                                <div class="sm:col-span-2 grid grid-cols-2 gap-4">
+                                    <label class="block text-sm font-medium text-gray-700 col-span-2">Liver Enzymes (U/L)</label>
+                                    <input type="number" id="sgot" min="1" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="SGOT/AST (e.g., 30)">
+                                    <input type="number" id="sgpt" min="1" class="block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="SGPT/ALT (e.g., 35)">
+                                </div>
+
+                                <!-- Hemoglobin (OPTIONAL) -->
+                                <div>
+                                    <label for="hemoglobin" class="block text-sm font-medium text-gray-700">Hemoglobin (g/dL)</label>
+                                    <input type="number" id="hemoglobin" min="5" max="20" step="0.1" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet" placeholder="e.g., 14.2">
+                                </div>
+                                
+                                <!-- Activity (MANDATORY) -->
+                                <div>
+                                    <label for="activity" class="block text-sm font-medium text-gray-700">Physical Activity Level <span>*</span></label>
+                                    <select id="activity" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet">
+                                        <option value="4">High (Daily intense exercise)</option>
+                                        <option value="3">Moderate (3-5 times/week)</option>
+                                        <option value="2" selected>Light (1-2 times/week)</option>
+                                        <option value="1">Sedentary (No exercise)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Lifestyle (MANDATORY) -->
+                                <div>
+                                    <label for="smoking" class="block text-sm font-medium text-gray-700">Smoking Status <span>*</span></label>
+                                    <select id="smoking" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm p-2 border focus:ring-primary-diet focus:border-primary-diet">
+                                        <option value="0">Never Smoked</option>
+                                        <option value="1">Former Smoker (Quit > 1 year)</option>
+                                        <option value="2">Current Smoker</option>
+                                    </select>
+                                </div>
+
+                                <!-- Family History (OPTIONAL) -->
+                                <div class="sm:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700">Family History (Select all that apply)</label>
+                                    <div class="mt-2 space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="history" value="diabetes" class="rounded text-primary-diet focus:ring-primary-diet">
+                                            <span class="ml-2 text-sm text-gray-600">Diabetes</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="history" value="heart" class="rounded text-primary-diet focus:ring-primary-diet">
+                                            <span class="ml-2 text-sm text-gray-600">Heart Disease (before age 60)</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="history" value="bp" class="rounded text-primary-diet focus:ring-primary-diet">
+                                            <span class="ml-2 text-sm text-gray-600">High Blood Pressure</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" name="history" value="thyroid" class="rounded text-primary-diet focus:ring-primary-diet">
+                                            <span class="ml-2 text-sm text-gray-600">Thyroid Condition</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p id="error-message" class="text-sm text-red-500 mt-4 hidden">Please fill in all fields marked with an asterisk (*).</p>
+
+                            <button type="submit" class="w-full mt-8 py-3 px-4 bg-primary-diet text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary-diet focus:ring-offset-2">
+                                Generate My Risk Assessment
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Result Section (Initially Hidden) -->
+                    <div id="result-section" class="pt-6 space-y-6 hidden">
+                        <h2 class="text-2xl font-bold text-primary-dark">Your Health Risk Assessment Report</h2>
+                        
+                        <div id="risk-summary" class="p-4 rounded-xl shadow-lg bg-gray-50 border-l-4 border-primary-diet">
+                            <!-- Dynamic Content Here -->
+                        </div>
+
+                        <!-- Dietitian Approach Section: Now a cohesive bulleted list -->
+                        <div id="dietitian-approach" class="space-y-4">
+                            <h3 class="text-xl font-semibold text-gray-800 border-b pb-2 pt-4">Your Clinical Dietitian Solution</h3>
+                            
+                            <ul class="list-none text-gray-700 space-y-3 p-4 bg-primary-diet/10 rounded-xl border border-primary-diet/20">
+                                
+                                <!-- Core Philosophy (Non-Restrictive) -->
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&check;</span>
+                                        <p class="font-bold text-gray-800">Approach Philosophy: <span class="font-normal">This is <strong class="text-red-600">NOT</strong> a restrictive diet. We focus on personalized, sustainable nutrition for <strong class="text-primary-dark">food freedom</strong>.</span></p>
+                                    </div>
+                                </li>
+
+                                <!-- Specific approach points (Food Freedom) -->
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&check;</span>
+                                        <p><strong class="text-primary-diet">Food Freedom Planning:</strong> We focus on adding nutrient-dense, satisfying foods rather than cutting whole groups, making your plan feel effortless.</p>
+                                    </div>
+                                </li>
+                                
+                                <!-- Specific approach points (Targeted Therapy) -->
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&check;</span>
+                                        <p><strong class="text-primary-diet">Targeted Nutrient Therapy:</strong> We use specific foods and nutrients to naturally support optimal thyroid, blood pressure, and blood sugar balance, targeting the root cause.</p>
+                                    </div>
+                                </li>
+                                
+                                <!-- Specific approach points (Lifestyle Structure) -->
+                                <li>
+                                    <div class="flex items-start">
+                                        <span class="text-primary-dark mr-3 text-lg font-extrabold">&check;</span>
+                                        <p><strong class="text-primary-diet">Lifestyle Structure, Not Rules:</strong> We build flexible meal structures that support muscle and steady energy, allowing you to reach your healthy weight without feeling hungry.</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <p class="text-lg font-medium text-gray-800 pt-4">Don't wait until a diagnosis—let's optimize your health now.</p>
+                        </div>
+                        
+                        <!-- Call to Action -->
+                        <div class="pt-4 border-t">
+                            <!-- New element to promote the main website/hub -->
+                            <div class="mt-2 mb-4 text-center p-3 border border-dashed border-gray-300 rounded-lg bg-gray-50">
+                                <p class="text-sm text-gray-700">Want more free health tips? Explore our full wellness library:</p>
+                                <a id="website-link" href="#" target="_blank" class="text-primary-diet hover:underline font-semibold mt-1 block">
+                                    Visit Our Wellness Hub &rarr;
+                                </a>
+                            </div>
+                            
+                            <p class="text-center text-gray-600 mb-4">Ready to take the next step towards lasting health?</p>
+                            <a id="contact-link" href="#" target="_blank" class="block w-full text-center py-4 px-4 bg-primary-dark text-white font-extrabold rounded-lg shadow-xl hover:bg-primary-diet transition duration-300 transform hover:scale-[1.02]">
+                                BOOK YOUR FREE INITIAL CONSULTATION (VIA WHATSAPP)
+                            </a>
+                        </div>
+
+                        <button onclick="resetCalculator()" class="w-full mt-4 py-2 text-sm text-gray-600 hover:text-primary-diet transition duration-200">
+                            &larr; Recalculate
+                        </button>
+
+                    </div>
+                </div>
+                <!-- End of the integrated calculator structure -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FOOTER -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-2xl font-extrabold text-white tracking-tight mb-2">NUTRICARE WELLNESS<span class="text-primary-diet">.</span></p>
+            <p class="text-sm text-gray-400">&copy; 2025 Nutricare Wellness. All rights reserved.</p>
+            <p class="text-xs text-gray-500 mt-4">Disclaimer: This calculator is for informational purposes only and is not a substitute for professional medical advice or diagnosis. Consult with a healthcare provider for personalized guidance.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC (Copied directly from original file) -->
+    <script>
+        // --- CONFIGURATION START ---
+        // Base WhatsApp URL with your number (currently 7978755097). 
+        const WHATSAPP_BASE_URL = "https://wa.me/7978755097?text=";
+        
+        // ACTION: Replace this placeholder with the actual URL of your main Canva website/blog/homepage.
+        const WEBSITE_HUB_URL = "https://nutricarerourkela.my.canva.site/nutricare-wellness";
+
+        // Set the website link initially
+        document.getElementById('website-link').href = WEBSITE_HUB_URL;
+        // --- CONFIGURATION END ---
+        
+        function getInputValue(id) {
+            const element = document.getElementById(id);
+            const value = parseFloat(element.value);
+            return (element.value === '' || isNaN(value)) ? null : value;
+        }
+
+        // Helper to format result lines with value, category, and normal range
+        function formatVitalLine(label, value, unit, category, normalRange) {
+            if (category === 'Not Provided') {
+                return `<li>${label}: Not Provided</li>`;
+            }
+            // Text color is red if the category is anything other than Normal/Optimal
+            const isRisk = (category !== 'Normal' && category !== 'Optimal');
+            const colorClass = isRisk ? 'text-red-600 font-medium' : 'text-gray-700';
+            const valueDisplay = (value !== null) ? value.toString() : 'N/A';
+            
+            // Handle LaTeX formatting for TSH unit
+            const unitDisplay = (label === 'TSH') ? valueDisplay + ' $\\mu \\text{IU/mL}$' : valueDisplay + ' ' + unit;
+            
+            // Remove the $ and LaTeX commands for the final display
+            const finalUnitDisplay = unitDisplay.replace(/\\mu \\text{IU\/mL}/g, 'μIU/mL').replace(/\$/g, '');
+
+            return `<li class="${colorClass}">${label}: ${finalUnitDisplay} (${category}) <span class="text-xs text-gray-500 italic ml-2"> (Normal: ${normalRange})</span></li>`;
+        }
+
+        function calculateRisk(event) {
+            event.preventDefault();
+            document.getElementById('error-message').classList.add('hidden');
+
+            const H = getInputValue('height'); // cm (Mandatory)
+            const W = getInputValue('weight');  // kg (Mandatory)
+            const age = getInputValue('age'); // (Mandatory)
+
+            // Optional Vitals
+            const sysBP = getInputValue('sysBP'); 
+            const diaBP = getInputValue('diaBP'); 
+            const sugar = getInputValue('sugar'); 
+            const cholesterol = getInputValue('cholesterol'); 
+            const tsh = getInputValue('tsh');
+            const creatinine = getInputValue('creatinine'); 
+            const urea = getInputValue('urea');             
+            const sgot = getInputValue('sgot');             
+            const sgpt = getInputValue('sgpt');             
+            const hemoglobin = getInputValue('hemoglobin'); 
+
+            const sex = document.getElementById('sex').value; // (Mandatory)
+            const activityValue = document.getElementById('activity').value; // (Mandatory)
+            const smokingValue = document.getElementById('smoking').value; // (Mandatory)
+            const familyHistory = Array.from(document.querySelectorAll('input[name="history"]:checked')).map(cb => cb.value);
+
+            // Basic validation for mandatory fields
+            if (!H || !W || !age || sex === "" || activityValue === "" || smokingValue === "") {
+                document.getElementById('error-message').textContent = 'Please fill in all fields marked with an asterisk (*).';
+                document.getElementById('error-message').classList.remove('hidden');
+                return;
+            }
+
+            // --- 1. BMI Calculation ---
+            const heightM = H / 100;
+            const bmi = W / (heightM * heightM);
+            let riskScore = 0;
+            let bmiCategory = '';
+            const riskDetails = [];
+
+            if (bmi < 18.5) {
+                bmiCategory = 'Underweight';
+                riskScore += 1;
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                bmiCategory = 'Normal Weight';
+            } else if (bmi >= 25.0 && bmi <= 29.9) {
+                bmiCategory = 'Overweight';
+                riskScore += 2;
+                riskDetails.push('Overweight BMI');
+            } else {
+                bmiCategory = 'Obese';
+                riskScore += 4;
+                riskDetails.push('Obese BMI');
+            }
+
+            // --- 2. Vitals Risk Scoring ---
+
+            // BP Risk (Normal: <120/<80 mmHg)
+            let bpCategory = 'Not Provided';
+            if (sysBP !== null && diaBP !== null) { 
+                if ((sysBP >= 120 && sysBP <= 129) && (diaBP < 80)) {
+                    bpCategory = 'Elevated'; riskScore += 1; riskDetails.push('Elevated BP');
+                } else if ((sysBP >= 130 && sysBP <= 139) || (diaBP >= 80 && diaBP <= 89)) {
+                    bpCategory = 'Hypertension Stage 1'; riskScore += 3; riskDetails.push('Hypertension Stage 1');
+                } else if (sysBP >= 140 || diaBP >= 90) {
+                    bpCategory = 'Hypertension Stage 2'; riskScore += 5; riskDetails.push('Hypertension Stage 2');
+                } else {
+                    bpCategory = 'Normal';
+                }
+            }
+
+            // Fasting Sugar Risk (Optimal: <100 mg/dL)
+            let sugarCategory = 'Not Provided';
+            if (sugar !== null) {
+                if (sugar >= 100 && sugar < 126) {
+                    sugarCategory = 'Pre-Diabetic'; riskScore += 2; riskDetails.push('Pre-Diabetic Sugar');
+                } else if (sugar >= 126) {
+                    sugarCategory = 'Diabetic Range'; riskScore += 5; riskDetails.push('Diabetic Sugar Level');
+                } else {
+                    sugarCategory = 'Optimal';
+                }
+            }
+
+            // Cholesterol Risk (Optimal: <200 mg/dL)
+            let cholCategory = 'Not Provided';
+            if (cholesterol !== null) {
+                if (cholesterol >= 200 && cholesterol < 240) {
+                    cholCategory = 'Borderline High'; riskScore += 1;
+                } else if (cholesterol >= 240) {
+                    cholCategory = 'High Cholesterol'; riskScore += 3; riskDetails.push('High Cholesterol');
+                } else {
+                    cholCategory = 'Optimal';
+                }
+            }
+            
+            // TSH Risk (Optimal: 0.4 - 4.0 $\mu$IU/mL)
+            let tshCategory = 'Not Provided';
+            if (tsh !== null) {
+                if (tsh < 0.4 || tsh > 4.0) {
+                    tshCategory = 'Outside Reference Range (Thyroid Risk)'; riskScore += 2; riskDetails.push('TSH Outside Range');
+                } else {
+                    tshCategory = 'Normal';
+                }
+            }
+            
+            // Creatinine Risk (Normal: M: 0.6–1.2, F: 0.5–1.1 mg/dL)
+            let creatCategory = 'Not Provided';
+            const creatNormalUpper = sex === 'male' ? 1.2 : 1.1;
+            const creatNormalLower = sex === 'male' ? 0.6 : 0.5;
+            if (creatinine !== null) {
+                if (creatinine > creatNormalUpper) {
+                    creatCategory = 'Elevated Creatinine (Kidney Risk)'; riskScore += 3; riskDetails.push('Elevated Creatinine');
+                } else if (creatinine < creatNormalLower) {
+                    creatCategory = 'Low Creatinine';
+                } else {
+                    creatCategory = 'Normal';
+                }
+            }
+            
+            // Urea/BUN Risk (Normal: 7–20 mg/dL)
+            let ureaCategory = 'Not Provided';
+            if (urea !== null) {
+                if (urea > 20) {
+                    ureaCategory = 'Elevated Urea/BUN (Kidney/Hydration Risk)'; riskScore += 2; riskDetails.push('Elevated Urea/BUN');
+                } else if (urea < 7) {
+                    ureaCategory = 'Low Urea/BUN';
+                } else {
+                    ureaCategory = 'Normal';
+                }
+            }
+
+            // SGOT/AST Risk (Normal: 8–40 U/L)
+            let sgotCategory = 'Not Provided';
+            if (sgot !== null) {
+                if (sgot > 40) {
+                    sgotCategory = 'Elevated SGOT/AST (Liver Risk)'; riskScore += 2; riskDetails.push('Elevated SGOT/AST');
+                } else {
+                    sgotCategory = 'Normal';
+                }
+            }
+
+            // SGPT/ALT Risk (Normal: 7–56 U/L)
+            let sgptCategory = 'Not Provided';
+            if (sgpt !== null) {
+                if (sgpt > 56) {
+                    sgptCategory = 'Elevated SGPT/ALT (Liver Risk)'; riskScore += 2; riskDetails.push('Elevated SGPT/ALT');
+                } else {
+                    sgptCategory = 'Normal';
+                }
+            }
+
+            // Hemoglobin Risk (Normal: M: 13.5–17.5, F: 12.0–15.5 g/dL)
+            let hbCategory = 'Not Provided';
+            const hbNormalLower = sex === 'male' ? 13.5 : 12.0;
+            if (hemoglobin !== null) {
+                if (hemoglobin < hbNormalLower) {
+                    hbCategory = 'Low Hemoglobin (Anemia Risk)'; riskScore += 2; riskDetails.push('Low Hemoglobin (Anemia)');
+                } else if (hemoglobin > (sex === 'male' ? 17.5 : 15.5)) {
+                    hbCategory = 'High Hemoglobin'; 
+                } else {
+                    hbCategory = 'Normal';
+                }
+            }
+
+            // --- 3. Lifestyle & History Risk (Mandatory inputs) ---
+            
+            const smoking = parseInt(smokingValue);
+            if (smoking === 2) { riskScore += 4; riskDetails.push('Current Smoker'); } 
+            else if (smoking === 1) { riskScore += 1; }
+
+            const activity = parseInt(activityValue);
+            if (activity === 1) { riskScore += 2; riskDetails.push('Sedentary Lifestyle'); } 
+            else if (activity === 2) { riskScore += 1; }
+
+            if (familyHistory.includes('diabetes')) { riskScore += 2; riskDetails.push('Family History of Diabetes'); }
+            if (familyHistory.includes('heart')) { riskScore += 3; riskDetails.push('Family History of Heart Disease'); }
+
+            // --- 4. Final Risk Category Assignment ---
+            let finalRisk = '';
+            let riskColor = '';
+            let riskAdvice = '';
+
+            if (riskScore <= 5) {
+                finalRisk = 'Low Risk';
+                riskColor = 'border-green-500 bg-green-50 text-green-800';
+                riskAdvice = 'Excellent work! Your vitals and lifestyle indicators show a strong foundation for health. Focus on maintaining these habits, particularly regular activity and balanced nutrition.';
+            } else if (riskScore <= 12) {
+                finalRisk = 'Moderate Risk';
+                riskColor = 'border-amber-500 bg-amber-50 text-amber-800';
+                riskAdvice = 'Caution needed. Your score indicates a few key areas that require attention. These risks are manageable with proactive lifestyle changes and personalized coaching.';
+            } else {
+                finalRisk = 'High Risk';
+                riskColor = 'border-red-600 bg-red-50 text-red-800';
+                riskAdvice = 'Urgent attention required. Your score suggests significant risk factors. Immediate, targeted nutrition and lifestyle intervention is strongly recommended to address these concerns.';
+            }
+            
+            // --- 5. Prepare WhatsApp Report Text ---
+            const detailedFindings = riskDetails.length > 0 ? riskDetails.join(', ') : 'None/Stable';
+            
+            const reportMessage = 
+                `HRA Report Ready!%0A---%0A` +
+                `*Risk Level:* ${finalRisk}%0A` +
+                `*BMI:* ${bmi.toFixed(1)} (${bmiCategory})%0A` +
+                `*Vitals/Issues:* ${detailedFindings}%0A` +
+                `---%0A` +
+                `I would like to book my free consultation.`;
+
+            const fullContactLink = WHATSAPP_BASE_URL + encodeURIComponent(reportMessage);
+            document.getElementById('contact-link').href = fullContactLink;
+
+
+            // --- 6. Display Results (Including Normal Ranges) ---
+            const creatinineNormalRange = sex === 'male' ? '0.6-1.2' : '0.5-1.1';
+            const hemoglobinNormalRange = sex === 'male' ? '13.5-17.5' : '12.0-15.5';
+
+            const riskSummaryHtml = `
+                <h4 class="text-xl font-bold mb-3 ${riskColor.includes('green') ? 'text-green-800' : riskColor.includes('amber') ? 'text-amber-800' : 'text-red-800'}">
+                    Risk Category: ${finalRisk}
+                </h4>
+                <p class="lg font-semibold mb-3">Your calculated BMI: ${bmi.toFixed(1)} (${bmiCategory})</p>
+                
+                <p class="text-sm font-medium">Summary of Key Findings & Vitals:</p>
+                <ul class="list-none list-inside text-sm mt-2 space-y-2">
+                    <!-- METABOLIC / ENDOCRINE -->
+                    ${formatVitalLine('Blood Pressure', (sysBP !== null ? sysBP + '/' + diaBP : null), 'mmHg', bpCategory, '<120/<80')}
+                    ${formatVitalLine('Fasting Sugar', sugar, 'mg/dL', sugarCategory, '70-99')}
+                    ${formatVitalLine('Total Cholesterol', cholesterol, 'mg/dL', cholCategory, '<200')}
+                    ${formatVitalLine('TSH', tsh !== null ? tsh.toFixed(2) : null, '', tshCategory, '0.4-4.0')}
+                    
+                    <!-- KIDNEY PROFILE -->
+                    ${formatVitalLine('Creatinine', creatinine !== null ? creatinine.toFixed(2) : null, 'mg/dL', creatCategory, creatinineNormalRange)}
+                    ${formatVitalLine('Urea / BUN', urea, 'mg/dL', ureaCategory, '7-20')}
+
+                    <!-- LIVER PROFILE -->
+                    ${formatVitalLine('SGOT (AST)', sgot, 'U/L', sgotCategory, '8-40')}
+                    ${formatVitalLine('SGPT (ALT)', sgpt, 'U/L', sgptCategory, '7-56')}
+                    
+                    <!-- HEMOGLOBIN -->
+                    ${formatVitalLine('Hemoglobin', hemoglobin !== null ? hemoglobin.toFixed(1) : null, 'g/dL', hbCategory, hemoglobinNormalRange)}
+                </ul>
+                <p class="mt-4 p-3 rounded-lg border ${riskColor.includes('border-green') ? 'border-green-300' : riskColor.includes('border-amber') ? 'border-amber-300' : 'border-red-300'} text-sm italic">${riskAdvice}</p>
+            `;
+            
+            document.getElementById('risk-summary').className = `p-4 rounded-xl shadow-lg border-l-4 ${riskColor}`;
+            document.getElementById('risk-summary').innerHTML = riskSummaryHtml;
+
+            document.getElementById('input-form').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+        }
+
+        function resetCalculator() {
+            document.getElementById('hra-form').reset();
+            document.getElementById('input-form').classList.remove('hidden');
+            document.getElementById('result-section').classList.add('hidden');
+            document.getElementById('error-message').classList.add('hidden');
+            
+            // Reset the contact link back to its base state after calculation is reset
+            document.getElementById('contact-link').href = "#"; 
+        }
+    </script>
+
+</body>
+</html>
